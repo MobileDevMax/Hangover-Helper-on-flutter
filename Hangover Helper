@@ -1,0 +1,154 @@
+import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
+void main() {
+  runApp(HangoverHelperApp());
+}
+
+class HangoverHelperApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Hangover Helper',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: TipsPage(),
+    );
+  }
+}
+
+class TipsPage extends StatelessWidget {
+  final List<String> tips = [
+    "Drink plenty of water.",
+    "Have a light breakfast.",
+    "Rest and sleep.",
+    "Try ginger tea.",
+    "Do some light exercise.",
+    "Drink coconut water.",
+    "Eat a banana.",
+    "Take aspirin or ibuprofen.",
+    "Drink green tea.",
+    "Make a smoothie with berries.",
+    "Avoid caffeine.",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Hangover Tips'),
+      ),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          CachedNetworkImage(
+            imageUrl:
+                'https://paytmblogcdn.paytm.com/wp-content/uploads/2024/12/new-year.webp', 
+            fit: BoxFit.cover,
+            placeholder: (context, url) => Container(
+                color: Colors.black), // Placeholder while the image is loading
+            errorWidget: (context, url, error) => Container(
+                color: Colors
+                    .black), // Widget if there's an error loading the image
+          ),
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    'Tips:',
+                    style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                ),
+                ...tips
+                    .map((tip) => ListTile(
+                        title:
+                            Text(tip, style: TextStyle(color: Colors.white))))
+                    .toList(),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RecipesPage()),
+                    );
+                  },
+                  child: Text('Go to Recipes'),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class RecipesPage extends StatelessWidget {
+  final List<String> recipes = [
+    "Energizing drink: mix orange juice, lemon, and honey.",
+    "Smoothie: banana, yogurt, and honey.",
+    "Cocktail: coconut water with lemon.",
+    "Ginger tea: brew ginger with honey.",
+    "Soup: chicken broth with vegetables.",
+    "Salad: cucumbers, tomatoes, and olive oil.",
+    "Cocktail: tomato juice with lemon and spices.",
+    "Smoothie: spinach, apple, and lemon.",
+    "Drink: water with lemon and mint.",
+    "Cocktail: grapefruit juice with soda.",
+    "Smoothie: strawberry, yogurt, and honey.",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Recovery Recipes'),
+      ),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          CachedNetworkImage(
+            imageUrl:
+                'https://paytmblogcdn.paytm.com/wp-content/uploads/2024/12/new-year.webp', 
+            fit: BoxFit.cover,
+            placeholder: (context, url) => Container(color: Colors.black),
+            errorWidget: (context, url, error) =>
+                Container(color: Colors.black),
+          ),
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    'Recipes:',
+                    style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                ),
+                ...recipes
+                    .map((recipe) => ListTile(
+                        title: Text(recipe,
+                            style: TextStyle(color: Colors.white))))
+                    .toList(),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Back to Tips'),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
